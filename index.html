@@ -28,6 +28,7 @@
             align-content: center;
             align-items: center;
             justify-content: space-between;
+            padding-top: 16px;
         }
 
         .switch{
@@ -404,11 +405,6 @@
         const btt = document.getElementById('toggle');
         const slider = document.querySelector('span');
 
-        // for(let i = 0; i < lis.length; i++){
-        //     lis[i].classList.toggle('noturno');
-        // }
-
-        
         (function (links, values){
             if(!links || !values){
                 throw new Error("Element(s) couldn't be reached");
