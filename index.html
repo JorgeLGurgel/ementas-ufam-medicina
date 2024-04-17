@@ -21,6 +21,70 @@
             font-family: "Montserrat", sans-serif;
         }
 
+        #header{
+            display: flex;
+            flex-direction: row;
+            flex-wrap: wrap;
+            align-content: center;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .switch{
+            margin-right: 32px;
+            position: relative;
+            display: inline-block;
+            width: 60px;
+            height: 34px;
+        }
+
+        .switch input{
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .slider{
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #ccc;
+            transition: .4s;
+            -webkit-transition: .4s;
+            border-radius: 34px;
+        }
+
+        .slider:before{
+            position: absolute;
+            content: ' 🌞';
+            height: 26px;
+            width: 26px;
+            left: 4px;
+            bottom: 4px;
+            background-color: #ffffff00;
+            transition: .4s;
+            -webkit-transition: .4s;
+            border-radius: 50%;
+        }
+
+        input:checked + .slider{
+            background-color: #4f5158;
+        }
+
+        input:focus + .slider {
+            box-shadow: 0 0 1px #4f5158;
+        }
+
+        input:checked + .slider:before {
+            -webkit-transform: translateX(26px);
+            -ms-transform: translateX(26px);
+            transform: translateX(26px);
+            content: ' 🌝';
+        }
+
         h1{
           font-weight: 600;
           font-size: x-large;
@@ -136,6 +200,15 @@
             padding-inline: 8px;
         }
 
+        .noturno{
+            background-color: #202124;
+            color: #FFFFFF;
+        }
+
+        .anoturno{
+            color: #FFFFFF;
+        }
+
         .fullsize{
             width: 100vw;
             display: block;
@@ -170,8 +243,15 @@
     <title>Ementas de Medicina UFAM</title>
 </head>
 <body>
-    <div class="fullsize">
-        <h1>Ementas</h1>
+    <div id="main" class="fullsize">
+        <div id="header">
+            <h1>Ementas</h1>
+            <!-- <button onclick="toggleNoturno(teste, links, img)"><img id="img" width="32px" src="/public/dark-theme-svgrepo-com.svg" alt=""></button> -->
+            <label for="theme" class="switch">
+                <input type="checkbox" name="theme" id="toggle">
+                <span class="slider"></span>
+            </label>
+        </div>
         <ul>
             <li class="prof"><a class="link" href="/EMENTAS/anatomia-i.html"></a></li>
             <li class="prof"><a class="link" href="/EMENTAS/anatomia-ii.html"></a></li>
@@ -240,10 +320,10 @@
             <li class="braco"><a class="link" href="/EMENTAS/traumato-ortopedia.html"></a></li>
             <li class="prof"><a class="link" href="/EMENTAS/urologia.html"></a></li>
         </ul>
+        <br>
     </div>
     <!-- como eu fiz o site  -->
-    </br>
-    <div class="fullsize info">
+    <div id="inf" class="fullsize info">
         <h2>Quer saber como programei esse site?</h2>
         <a class="button" href="https://github.com/JorgeLGurgel/ementas-ufam-medicina.git">Acesse aqui o código fonte</a>
     </div>
@@ -320,11 +400,15 @@
 
         const links = document.getElementsByClassName('link');
         const ementaValues = Object.values(ementas);
+        const teste = document.getElementById('main');
+        const btt = document.getElementById('toggle');
+        const slider = document.querySelector('span');
 
-        // for(let i = 0; i < ementaValues.length; i++){
-        //     links[i].innerHTML = ementaValues[i];
+        // for(let i = 0; i < lis.length; i++){
+        //     lis[i].classList.toggle('noturno');
         // }
 
+        
         (function (links, values){
             if(!links || !values){
                 throw new Error("Element(s) couldn't be reached");
@@ -336,6 +420,22 @@
                 links[i].innerHTML = values[i];
             }
         })(links, ementaValues)
-    </script>
+
+        function toggleNoturno(teste, links){
+            if(!teste || !links){
+                throw new Error("Element(s) couldn't be reached");
+            }
+            for(let i = 0; i < links.length; i++){
+                links[i].classList.toggle('anoturno');
+            }
+            teste.classList.toggle('noturno');
+        }
+
+        slider.onclick = () => btt.click();
+
+        btt.onclick = () => {
+            toggleNoturno(teste, links);
+        }
+        </script>
 </body>
 </html>
