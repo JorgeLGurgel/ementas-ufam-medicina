@@ -430,12 +430,14 @@
             }
             teste.classList.toggle('noturno');
         }
-
+        
         slider.onclick = () => btt.click();
-
+        
         btt.onclick = () => {
             toggleNoturno(teste, links);
         }
+
+        window.matchMedia('(prefers-color-scheme: dark)').matches ? btt.click() : {};
         </script>
 </body>
 </html>
